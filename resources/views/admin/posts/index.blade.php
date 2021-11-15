@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
                 <table class="table">
@@ -18,11 +18,11 @@
                     <tbody>
                         @foreach ($posts as $post)    
                             <tr>
-                                <td>{{$posts["id"]}}</td>
-                                <td>{{$posts["title"]}}</td>
-                                <td>{{$posts["slug"]}}</td>
+                                <td>{{$post["id"]}}</td>
+                                <td>{{$post["title"]}}</td>
+                                <td>{{$post["slug"]}}</td>
                                 <td>
-                                    <a href="">
+                                    <a href="{{route("admin.posts.show", $post["id"])}}">
                                         <button type="button" class="btn btn-primary">Visualizza</button>
                                     </a>
                                 </td>
