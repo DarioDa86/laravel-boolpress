@@ -15,7 +15,7 @@
                     @endif
                     <ul>
                         <li>
-                            <a href="{{"admin.posts.index"}}">Visualizza tutti i posts</a>
+                            <a href="{{route('admin.posts.index')}}">Visualizza tutti i posts</a>
                         </li>
                     </ul>
                 </div>
