@@ -47,20 +47,8 @@ class PostController extends Controller
 
         $newPost = new Post();
         $newPost->fill($request->all());
-
-        $slug = Str::of($request -> title)->slug('-');
-
-        $postExist = Post::where("slug", $slug)->first();
         
-        $count = 2;
-
-        while($postExist) {
-            $slug = Str::of($request -> title)->slug('-') . "-{$count}";
-            $postExist = Post::where("slug", $slug)->first();
-            $count++;
-        }
-        
-        $newPost->slug = $slug;
+        $newPost->slug = $this->getSlug($request->title);
 
         $newPost->save();
 
@@ -103,26 +91,14 @@ class PostController extends Controller
 
         if($post->title!= $request->title) {
             
-            $slug = Str::of($request -> title)->slug('-');
-
-            $postExist = Post::where("slug", $slug)->first();
-            
-            $count = 2;
-
-            while($postExist) {
-                $slug = Str::of($request -> title)->slug('-') . "-{$count}";
-                $postExist = Post::where("slug", $slug)->first();
-                $count++;
-            }
-        
-        $post->slug = $slug;
+            $post->slug = $this->getSlug($request->title);
         }
         
         $post->fill($request->all());
 
         $post->save();
         
-        return redirect()->route("admin.posts.show", $post->id);
+        return redirect()->route("admin.posts.index")->with('success', "Il post {$post->id} è stato aggiornato");
     }
 
     /**
@@ -136,5 +112,28 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->route("admin.posts.index")->with('success', "Il post {$post->id} è stato eliminato");
+    }
+
+    /** 
+     * getSlug - return a unique slug
+     * 
+     * @param string $title
+     * @return string
+    */
+    
+    private function getSlug($title) 
+    {
+        $slug = Str::of($title)->slug('-');
+
+        $postExist = Post::where("slug", $slug)->first();
+        
+        $count = 2;
+
+        while($postExist) {
+            $slug = Str::of($title)->slug('-') . "-{$count}";
+            $postExist = Post::where("slug", $slug)->first();
+            $count++;
+        }
+        return $slug;
     }
 }
