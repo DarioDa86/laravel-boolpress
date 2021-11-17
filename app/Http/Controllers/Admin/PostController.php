@@ -52,7 +52,7 @@ class PostController extends Controller
 
         $newPost->save();
 
-        return redirect()->route("admin.posts.index")->with('success', "Il post è statp creato");
+        return redirect()->route("admin.posts.index")->with('success', "Il post è stato creato");
 
     }
 
@@ -107,8 +107,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Request $request)
     {
+        $post = Post::find($request->id);
         $post->delete();
 
         return redirect()->route("admin.posts.index")->with('success', "Il post {$post->id} è stato eliminato");

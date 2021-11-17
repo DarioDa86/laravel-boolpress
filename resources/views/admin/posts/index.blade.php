@@ -35,19 +35,42 @@
                                         <a href="{{route("admin.posts.edit", $post["id"])}}">
                                             <button type="button" class="btn btn-warning">Modifica</button>
                                         </a>
-                                        <form action="{{route("admin.posts.destroy", $post["id"])}}" method="POST">
-                                        @csrf
-                                        @method("DELETE")
-                                        <button type="submit" class="btn btn-danger">Elimina</button>
-
-                                        </form>
+                                        <button type="button" class="btn btn-danger btn-delete" data-id="{{$post["id"]}}" data-toggle="modal" data-target="#deleteModal">
+                                            Elimina
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
-                        </table>
+                    </table>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Conferma cancellazione post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{route("admin.posts.destroy", 'id')}}" method="POST">
+                    @csrf
+                    @method("DELETE")
+                    <input type="hidden" id="delete-id" name="id">
+                <div class="modal-body">
+                    Sei sicuro di voler eliminare il post?
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">SI</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
