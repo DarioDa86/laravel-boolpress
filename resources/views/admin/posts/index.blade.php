@@ -7,13 +7,19 @@
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
                 <div class="card-body">
-                    
+                    @if ($message = Session::get('success'))
+					<div class="alert alert-success alert-block">
+						<button type="button" class="close" data-dismiss="alert">×</button>    
+						<strong>{{ $message }}</strong>
+					</div>
+					@endif
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Slug</th>
+                                <th scope="col">Category</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -23,6 +29,7 @@
                                     <td>{{$post["id"]}}</td>
                                     <td>{{$post["title"]}}</td>
                                     <td>{{$post["slug"]}}</td>
+                                    <td>{{$post["category"]["name"] ?? ""}}</td>
                                     <td>
                                         <a href="{{route("admin.posts.show", $post["id"])}}">
                                             <button type="button" class="btn btn-primary">Visualizza</button>
