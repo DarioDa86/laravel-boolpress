@@ -35,7 +35,7 @@
                                 @if ($errors->any())
                                     <option {{ old("category_id") == $category["id"] ? 'selected' : null }} value="{{$category["id"]}}">{{$category["name"]}}</option>
                                 @else
-                                <option {{isset($post["category"]) && $post["category"]["id"] == $category["id"] ? 'selected' : null }} value="{{$category["id"]}}">{{$category["name"]}}</option>
+                                    <option {{isset($post["category"]) && $post["category"]["id"] == $category["id"] ? 'selected' : null }} value="{{$category["id"]}}">{{$category["name"]}}</option>
                                 @endif
 
                                 @endforeach

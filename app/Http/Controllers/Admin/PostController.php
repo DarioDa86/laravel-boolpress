@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -24,7 +25,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-
+        
         return view("admin.posts.index", compact('posts'));
     }
 
@@ -60,7 +61,6 @@ class PostController extends Controller
         $newPost->save();
         
         return redirect()->route("admin.posts.index")->with('success', "Il post è stato creato");
-
     }
 
     /**
@@ -82,6 +82,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $categories = Category::all();
+        
         return view("admin.posts.edit", compact("post", "categories"));
     }
 

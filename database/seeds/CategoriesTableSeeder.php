@@ -19,7 +19,6 @@ class CategoriesTableSeeder extends Seeder
             $newCategory = new Category();
             $newCategory-> name = $category;
             $newCategory-> slug = Str::of($category)->slug('-');
-            ;
             $newCategory->save();
         }
         
